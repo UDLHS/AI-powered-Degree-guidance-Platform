@@ -19,8 +19,8 @@ import psycopg2
 # ============================================================
 # CONFIGURATION
 # ============================================================
-COURSE_NAMES_CSV = "page1_dnames.csv"
-ZSCORES_CSV      = "page1_zscores.csv"
+COURSE_NAMES_CSV = "test/page1_dnames.csv"
+ZSCORES_CSV      = "test/page1_zscores.csv"
 OUTPUT_CSV       = "output/merged_zscores.csv"
 YEAR             = 2024
 
