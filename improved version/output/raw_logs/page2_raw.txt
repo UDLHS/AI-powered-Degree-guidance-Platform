@@ -1,0 +1,58 @@
+  1: BIOLOGICAL SCIENCE
+  2: (University of Sri Jayewardenepura)
+  3: BIOLOGICAL SCIENCE
+  4: (University of Kelaniya)
+  5: BIOLOGICAL SCIENCE
+  6: (University of Jaffna)
+  7: BIOLOGICAL SCIENCE
+  8: (University of Ruhuna)
+  9: BIOLOGICAL SCIENCE
+ 10: (Eastern University, Sri Lanka)
+ 11: BIOLOGICAL SCIENCE
+ 12: (South Eastern University of Sri Lanka)
+ 13: APPLIED SCIENCES (BIO.SC)
+ 14: (Rajarata University of Sri Lanka)
+ 15: APPLIED SCIENCES (BIO.SC)
+ 16: (Sabaragamuwa University of Sri Lanka)
+ 17: APPLIED SCIENCES (BIO.SC)
+ 18: (University of Vavuniya, Sri Lanka)
+ 19: ENGINEERING
+ 20: (University of Peradeniya)
+ 21: ENGINEERING
+ 22: (University of Sri Jayewardenepura)
+ 23: ENGINEERING
+ 24: (University of Jaffna)
+ 25: ENGINEERING
+ 26: (University of Ruhuna)
+ 27: ENGINEERING
+ 28: (University of Moratuwa)
+ 29: ENGINEERING
+ 30: (South Eastern
+ 31: University of Sri Lanka)
+ 32: ENGINEERING (EM)
+ 33: (University of Moratuwa)
+ 34: ENGINEERING (TM)
+ 35: (University of Moratuwa)
+ 36: QUANTITY SURVEYING
+ 37: (University of Moratuwa)
+ 38: COMPUTER SCIENCE
+ 39: (University of Colombo School of Computing)
+ 40: COMPUTER SCIENCE
+ 41: (University of Sri Jayewardenepura)
+ 42: COMPUTER SCIENCE
+ 43: (University of Kelaniya)
+ 44: COMPUTER SCIENCE
+ 45: (University of Jaffna)
+ 46: COMPUTER SCIENCE
+ 47: (University of Ruhuna)
+ 48: COMPUTER SCIENCE
+ 49: (Eastern University
+ 50: Trincomalee Campus)
+ 51: PHYSICAL SCIENCE
+ 52: (University of Colombo)
+ 53: PHYSICAL SCIENCE
+ 54: (University of Peradeniya)
+ 55: PHYSICAL SCIENCE
+ 56: (University of Sri Jayewardenepura)
+ 57: PHYSICAL SCIENCE
+ 58: (University of Kelaniya)

@@ -1,0 +1,58 @@
+  1: PHYSICAL SCIENCE
+  2: (University of Jaffna)
+  3: PHYSICAL SCIENCE
+  4: (University of Ruhuna)
+  5: PHYSICAL SCIENCE
+  6: (Eastern University, Sri Lanka)
+  7: PHYSICAL SCIENCE
+  8: (South Eastern University of Sri Lanka)
+  9: SURVEYING SCIENCE
+ 10: (Sabaragamuwa University of Sri Lanka)
+ 11: APPLIED SCIENCES  (PHY.SC)
+ 12: (Rajarata University of Sri Lanka)
+ 13: APPLIED SCIENCES  (PHY.SC)
+ 14: (Sabaragamuwa University of Sri Lanka)
+ 15: APPLIED SCIENCES  (PHY.SC)
+ 16: (Wayamba University of Sri Lanka)
+ 17: APPLIED SCIENCES (PHY.SC)
+ 18: (University of Vavuniya, Sri Lanka)
+ 19: APPLIED SCIENCES (PHY.SC)
+ 20: (Eastern University
+ 21: Trincomalee Campus)
+ 22: MANAGEMENT
+ 23: (University of Colombo)
+ 24: MANAGEMENT
+ 25: (University of Peradeniya)
+ 26: MANAGEMENT
+ 27: (University of Sri Jayewardenepura)
+ 28: MANAGEMENT
+ 29: (University of Kelaniya)
+ 30: MANAGEMENT
+ 31: (University of Jaffna)
+ 32: MANAGEMENT
+ 33: (University of Ruhuna)
+ 34: MANAGEMENT
+ 35: (Eastern University, Sri Lanka)
+ 36: MANAGEMENT
+ 37: South Eastern University of Sri Lanka)
+ 38: MANAGEMENT
+ 39: (Rajarata University of Sri Lanka)
+ 40: MANAGEMENT
+ 41: (Sabaragamuwa University of Sri Lanka)
+ 42: MANAGEMENT
+ 43: (Wayamba University of Sri Lanka)
+ 44: REAL ESTATE MANAGEMENT & VALUATION
+ 45: (University of Sri Jayewardenepura)
+ 46: COMMERCE
+ 47: (University of Sri Jayewardenepura)
+ 48: COMMERCE
+ 49: (University of Kelaniya)
+ 50: COMMERCE
+ 51: (University of Jaffna)
+ 52: COMMERCE
+ 53: (Eastern
+ 54: University, Sri Lanka)
+ 55: COMMERCE
+ 56: South Eastern University of Sri Lanka)
+ 57: MANAGEMENT (PUBLIC) HONOURS
+ 58: (University of Sri Jayewardenepura)
