@@ -1,0 +1,55 @@
+  1: MEDICAL LABORATORY SCIENCES
+  2: (University of Sri Jayewardenepura)
+  3: MEDICAL LABORATORY SCIENCES
+  4: (University of Jaffna)
+  5: MEDICAL LABORATORY SCIENCES
+  6: (University of Ruhuna)
+  7: RADIOGRAPHY
+  8: (University of Peradeniya)
+  9: MEDICAL IMAGING TECHNOLOGY
+ 10: (University of Colombo)
+ 11: PHYSIOTHERAPY
+ 12: (University of Colombo)
+ 13: PHYSIOTHERAPY
+ 14: (University of Peradeniya)
+ 15: OCCUPATIONAL THERAPY
+ 16: (University of Kelaniya)
+ 17: OPTOMETRY
+ 18: (University of Sri Jayewardenepura)
+ 19: ENVIRONMENTAL CONSERVATION &
+ 20: MANAGEMENT
+ 21: (University of Kelaniya)
+ 22: APPLIED CHEMISTRY
+ 23: (University of Kelaniya)
+ 24: ELECTRONICS AND COMPUTER SCIENCE
+ 25: (University of Kelaniya)
+ 26: AccOUNTING INFORMATION SYSTEMS
+ 27: (University of Kelaniya)
+ 28: FISHERIES & MARINE SCIENCES
+ 29: (University of Ruhuna)
+ 30: MARINE AND FRESHWATER SCIENCES
+ 31: (University of Ruhuna)
+ 32: ANIMAL SCIENCE & FISHERIES
+ 33: (University of Peradeniya)
+ 34: FOOD PRODUCTION
+ 35: &
+ 36: TECHNOLOGY MANAGEMENT
+ 37: (Wayamba University of Sri Lanka)
+ 38: FOOD BUSINESS MANAGEMENT
+ 39: [Biological_
+ 40: Physical Science Stream]
+ 41: (Sabaragamuwa University of Sri Lanka)
+ 42: FOOD BUSINESS MANAGEMENT
+ 43: [Commerce Stream]
+ 44: (Sabaragamuwa University of Sri Lanka)
+ 45: MANAGEMENT
+ 46: AND INFORMATION
+ 47: TECHNOLOGY (SEUSL)
+ 48: South Eastern University of Sri Lanka)
+ 49: COMPUTING & INFORMATION SYSTEMS
+ 50: (Sabaragamuwa University of Sri Lanka)
+ 51: DATA SCIENCE
+ 52: (Sabaragamuwa University of Sri Lanka)
+ 53: PHYSICAL EDUCATION
+ 54: #
+ 55: (University of Jaffna)

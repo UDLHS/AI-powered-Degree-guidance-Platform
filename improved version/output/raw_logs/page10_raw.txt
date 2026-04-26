@@ -1,0 +1,56 @@
+  1: INFORMATION COMMUNICATION TECHNOLOGY
+  2: (University of Vavuniya, Sri Lanka)
+  3: INFORMATION COMMUNICATION TECHNOLOGY
+  4: (Uva Wellassa University of Sri Lanka)
+  5: PHYSICAL SCIENCE -ICT
+  6: (University of Sri Jayewardenepura)
+  7: PHYSICAL SCIENCE -ICT
+  8: (University of Kelaniya)
+  9: TRANSLATION STUDIES
+ 10: (University of Kelaniya)
+ 11: TRANSLATION STUDIES
+ 12: #
+ 13: (University of Jaffna)
+ 14: TRANSLATION STUDIES
+ 15: (Eastern University, Sri Lanka)
+ 16: TRANSLATION STUDIES
+ 17: (Sabaragamuwa University of Sri Lanka)
+ 18: FILM & TELEVISION STUDIES
+ 19: #
+ 20: (University of Kelaniya)
+ 21: PROJECT MANAGEMENT
+ 22: (University of Vavuniya, Sri Lanka)
+ 23: TEACHING ENGLISH AS A SECOND
+ 24: LANGUAGE (TESL)
+ 25: (University of Sri Jayewardenepura)
+ 26: TEACHING ENGLISH AS A SECOND
+ 27: LANGUAGE (TESL)
+ 28: (University of Kelaniya)
+ 29: VISUAL ARTS
+ 30: (University of the Visual & Performing Arts)
+ 31: MUSIC
+ 32: (University of Sri Jayewardenepura)
+ 33: MUSIC
+ 34: (University of the Visual &
+ 35: Performing Arts)
+ 36: DANCE
+ 37: (University of the Visual &
+ 38: Performing Arts)
+ 39: DRAMA & THEATRE
+ 40: (University of the Visual & Performing Arts)
+ 41: ART & DESIGN
+ 42: (University of Jaffna)
+ 43: MUSIC
+ 44: #
+ 45: (University of
+ 46: 'Jaffna)
+ 47: DANCE #
+ 48: (University of Jaffna)
+ 49: VISUAL & TECHNOLOGICAL ARTS
+ 50: (Swami Vipulananda Institute of Aesthetic Studies)
+ 51: MUSIC
+ 52: (Swami Vipulananda Institute of Aesthetic Studies)
+ 53: DANCE
+ 54: Swami Vipulananda Institute of Aesthetic Studies)
+ 55: DRAMA & THEATRE #
+ 56: (Swami Vipulananda Institute of Aesthetic Studies)

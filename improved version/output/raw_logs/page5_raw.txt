@@ -1,0 +1,65 @@
+  1: MANAGEMENT STUDIES (TV) - B
+  2: [Any subject combination]
+  3: (University of Vavuniya, Sri Lanka)
+  4: MANAGEMENT STUDIES (TV) - B
+  5: [Any subject combination]
+  6: (Eastern
+  7: University ~Trincomalee Campus)
+  8: COMMUNICATION STUDIES
+  9: (Eastern University -Trincomalee Campus)
+ 10: FINANCIAL ECONOMICS
+ 11: (University of Sri Jayewardenepura)
+ 12: CREATIVE MUSIC TECHNOLOGY & PRODUCTION
+ 13: (University of Sri Jayewardenepura)
+ 14: PEACE & CONFLICT RESOLUTION
+ 15: (University of Kelaniya)
+ 16: ISLAMIC STUDIES
+ 17: (South Eastern
+ 18: University of Sri Lanka)
+ 19: ARABIC LANGUAGE
+ 20: (South Eastern University of Sri Lanka)
+ 21: ARCHITECTURE #
+ 22: (University of Moratuwa)
+ 23: DESIGN #
+ 24: (University of Moratuwa)
+ 25: LANDSCAPE ARCHITECTURE #
+ 26: (University of Moratuwa)
+ 27: TOWN
+ 28: &
+ 29: COUNTRY PLANNING
+ 30: (University of Moratuwa)
+ 31: FASHION DESIGN & PRODUCT DEVELOPMENT #
+ 32: (University of Moratuwa)
+ 33: ARTIFICIAL INTELLIGENCE
+ 34: (University of Moratuwa)
+ 35: INFORMATION TECHNOLOGY & MANAGEMENT #
+ 36: (University of Moratuwa)
+ 37: INFORMATION TECHNOLOGY (IT)
+ 38: (University of Moratuwa)
+ 39: FACILITIES MANAGEMENT
+ 40: (University of Moratuwa)
+ 41: TRANSPORT MANAGEMENT & LOGISTICS ENGINEERING
+ 42: (TMLE)
+ 43: (University of Moratuwa)
+ 44: BUSINESS SCIENCE
+ 45: (University of Moratuwa)
+ 46: MANAGEMENT AND INFORMATION
+ 47: TECHNOLOGY (MIT)
+ 48: (University of Kelaniya)
+ 49: INDUSTRIAL STATISTICS &
+ 50: MATHEMATICAL FINANCE
+ 51: (University of Colombo)
+ 52: FINANCIAL MATHEMATICS AND INDUSTRIAL STATISTICS
+ 53: (University of Ruhuna)
+ 54: STATISTICS & OPERATIONS RESEARCH
+ 55: (University of Peradeniya)
+ 56: GEOGRAPHICAL INFORMATION SCIENCE
+ 57: (University of Peradeniya)
+ 58: INFORMATION AND COMMUNICATION TECHNOLOGY (ICT)
+ 59: (Rajarata University of Sri Lanka)
+ 60: INFORMATION AND COMMUNICATION TECHNOLOGY (ICT)
+ 61: (University of Vavuniya, Sri Lanka)
+ 62: INFORMATION SYSTEMS #
+ 63: (University of Colombo School of Computing)
+ 64: INFORMATION SYSTEMS #
+ 65: (University of Sri Jayewardenepura)

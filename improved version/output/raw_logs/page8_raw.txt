@@ -1,0 +1,57 @@
+  1: PHYSICAL EDUCATION
+  2: #
+  3: (Sabaragamuwa University of Sri Lanka)
+  4: SPORTS SCIENCE & MANAGEMENT
+  5: #
+  6: (University of Sri Jayewardenepura)
+  7: SPORTS SCIENCE & MANAGEMENT
+  8: (University of Kelaniya)
+  9: SPORTS SCIENCE & MANAGEMENT
+ 10: #
+ 11: (Sabaragamuwa University of Sri Lanka)
+ 12: SPEECH AND HEARING SCIENCES #
+ 13: (University of Kelaniya)
+ 14: TOURISM & HOSPITALITY MANAGEMENT
+ 15: (Rajarata University of Sri Lanka)
+ 16: TOURISM & HOSPITALITY MANAGEMENT
+ 17: (Sabaragamuwa University of Sri Lanka)
+ 18: AGRICULTURAL RESOURCE MANAGEMENT AND
+ 19: TECHNOLOGY
+ 20: (University of Ruhuna)
+ 21: AGRI BUSINESS MANAGEMENT
+ 22: (University of Ruhuna)
+ 23: GREEN TECHNOLOGY
+ 24: (University of Ruhuna)
+ 25: SCIENCE AND TECHNOLOGY
+ 26: (Uva Wellassa University of Sri Lanka)
+ 27: COMPUTER SCIENCE & TECHNOLOGY
+ 28: #
+ 29: (Uva Wellassa University of Sri Lanka)
+ 30: ENTREPRENEURSHIP AND MANAGEMENT #
+ 31: (Uva Wellassa University of Sri Lanka)
+ 32: ANIMAL PRODUCTION AND FOOD TECHNOLOGY
+ 33: (Uva Wellassa University of Sri Lanka)
+ 34: EXPORT AGRICULTURE
+ 35: (Uva Wellassa
+ 36: University of Sri Lanka)
+ 37: INDUSTRIAL INFORMATION
+ 38: TECHNOLOGY
+ 39: #
+ 40: (Uva Wellassa University of Sri Lanka)
+ 41: MINERAL RESOURCES AND
+ 42: TECHNOLOGY
+ 43: (Uva Wellassa University of Sri Lanka)
+ 44: AQUATIC RESOURCES TECHNOLOGY
+ 45: (Uva Wellassa University of Sri Lanka)
+ 46: HOSPITALITY, TOURISM
+ 47: AND EVENTS MANAGEMENT
+ 48: (Uva Wellassa University of Sri Lanka)
+ 49: ENGLISH LANGUAGE & APPLIED LINGUISTICS
+ 50: (Uva Wellassa University of Sri Lanka)
+ 51: PLANTATION MANAGEMENT AND TECHNOLOGY
+ 52: (Uva Wellassa
+ 53: University of Sri Lanka)
+ 54: ENGINEERING TECHNOLOGY (ET)
+ 55: (University of Colombo)
+ 56: ENGINEERING TECHNOLOGY (ET)
+ 57: (University of Sri Jayewardenepura)
