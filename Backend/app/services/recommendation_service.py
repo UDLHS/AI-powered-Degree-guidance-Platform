@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from app.models.university import DegreeProgram, CutoffMark, University
+from app.models.university import DegreeProgram, CutoffMark, University, ProgramField
 from app.models.academic import RecommendationResult
 
 
@@ -11,7 +11,10 @@ def get_recommendations(
     z_score: float,
     field_ids: list[int] | None = None,
     profile_id=None,
-    save_results: bool = False
+    save_results: bool = False,
+    min_job_demand_score: int | None = None,
+    max_pending_margin: float | None = None,
+    result_type: str | None = None
 ):
     query = (
         db.query(DegreeProgram, CutoffMark, University)
@@ -20,6 +23,19 @@ def get_recommendations(
         .filter(DegreeProgram.stream_id == stream_id)
         .filter(CutoffMark.district_id == district_id)
     )
+
+    if min_job_demand_score is not None:
+        query = query.filter(DegreeProgram.job_demand_score >= min_job_demand_score)
+
+    if field_ids:
+        program_ids_for_fields = (
+            db.query(ProgramField.program_id)
+            .filter(ProgramField.field_id.in_(field_ids))
+            .distinct()
+            .subquery()
+        )
+
+        query = query.filter(DegreeProgram.program_id.in_(program_ids_for_fields))
 
     rows = query.all()
 
@@ -49,6 +65,10 @@ def get_recommendations(
             item["match_type"] = "BEST"
             best_matches.append(item)
         else:
+            if max_pending_margin is not None:
+                if abs(margin) > max_pending_margin:
+                    continue
+
             item["match_type"] = "PENDING"
             pending_matches.append(item)
 
@@ -62,14 +82,12 @@ def get_recommendations(
 
     pending_matches.sort(key=lambda x: abs(x["margin"]))
 
-    # Add rank numbers
     for index, item in enumerate(best_matches, start=1):
         item["rank"] = index
 
     for index, item in enumerate(pending_matches, start=1):
         item["rank"] = index
 
-    # Save recommendation results to DB
     if save_results and profile_id:
         db.query(RecommendationResult).filter(
             RecommendationResult.profile_id == profile_id
@@ -99,7 +117,19 @@ def get_recommendations(
 
         db.commit()
 
+    if result_type == "BEST":
+        pending_matches = []
+
+    if result_type == "PENDING":
+        best_matches = []
+
     return {
         "best_matching": best_matches,
-        "pending_borderline": pending_matches
+        "pending_borderline": pending_matches,
+        "filters_applied": {
+            "field_ids": field_ids or [],
+            "min_job_demand_score": min_job_demand_score,
+            "max_pending_margin": max_pending_margin,
+            "result_type": result_type or "ALL"
+        }
     }

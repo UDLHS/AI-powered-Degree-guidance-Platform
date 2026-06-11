@@ -10,6 +10,7 @@ from app.models.university import (
 )
 from app.models.admin import Admin
 from app.utils.security import hash_password
+from app.models.university import ProgramField
 
 def seed_streams(db):
     streams = [
@@ -397,6 +398,50 @@ def seed_admin(db):
             )
         )
 
+
+def seed_program_fields(db):
+    program_fields = [
+        # BSc Computer Science
+        (1, 1),  # Software Engineering
+        (1, 2),  # Data Science
+        (1, 3),  # Artificial Intelligence
+        (1, 4),  # Cyber Security
+
+        # BSc Engineering
+        (2, 5),  # Engineering
+        (2, 1),  # Software Engineering
+
+        # BSc Physical Science
+        (3, 2),  # Data Science
+        (3, 5),  # Engineering
+
+        # Bachelor of Commerce
+        (4, 9),   # Finance
+        (4, 10),  # Accounting
+        (4, 12),  # Management
+
+        # Biological Science
+        (5, 6),  # Medicine / Health Science
+        (5, 7),  # Biotechnology
+        (5, 8),  # Agriculture
+    ]
+
+    for program_id, field_id in program_fields:
+        exists = (
+            db.query(ProgramField)
+            .filter(ProgramField.program_id == program_id)
+            .filter(ProgramField.field_id == field_id)
+            .first()
+        )
+
+        if not exists:
+            db.add(
+                ProgramField(
+                    program_id=program_id,
+                    field_id=field_id
+                )
+            )
+
 def main():
     db = SessionLocal()
 
@@ -423,7 +468,10 @@ def main():
 
         seed_admin(db)
         db.flush()
-        
+
+        seed_program_fields(db)
+        db.flush()
+
         db.commit()
         print("Seed data inserted successfully.")
 

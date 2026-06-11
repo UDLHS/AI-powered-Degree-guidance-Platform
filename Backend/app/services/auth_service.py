@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from app.models.user import User
 from app.schemas.auth_schema import UserRegisterRequest, UserLoginRequest
 from app.utils.security import hash_password, verify_password, create_access_token
+from app.services.activity_service import log_student_activity
 
 
 def register_user(db: Session, payload: UserRegisterRequest):
@@ -25,8 +26,22 @@ def register_user(db: Session, payload: UserRegisterRequest):
     db.commit()
     db.refresh(new_user)
 
+    # Log student register activity for admin live panel
+    log_student_activity(
+        db=db,
+        user_id=new_user.user_id,
+        action="STUDENT_REGISTERED",
+        details={
+            "name": new_user.name,
+            "email": new_user.email
+        }
+    )
+
     access_token = create_access_token(
-        data={"sub": str(new_user.user_id), "email": new_user.email}
+        data={
+            "sub": str(new_user.user_id),
+            "email": new_user.email
+        }
     )
 
     return {
@@ -53,8 +68,22 @@ def login_user(db: Session, payload: UserLoginRequest):
             detail="Invalid email or password"
         )
 
+    # Log student login activity for admin live panel
+    log_student_activity(
+        db=db,
+        user_id=user.user_id,
+        action="STUDENT_LOGGED_IN",
+        details={
+            "name": user.name,
+            "email": user.email
+        }
+    )
+
     access_token = create_access_token(
-        data={"sub": str(user.user_id), "email": user.email}
+        data={
+            "sub": str(user.user_id),
+            "email": user.email
+        }
     )
 
     return {

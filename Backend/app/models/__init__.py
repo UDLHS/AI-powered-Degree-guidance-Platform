@@ -1,5 +1,5 @@
 
-from app.models.user import User
+from app.models.user import User, StudentActivityLog
 from app.models.academic import (
     ALevelStream,
     Subject,
@@ -18,6 +18,7 @@ from app.models.university import (
     Specialization,
     ProgramCareer,
     ProgramCourse,
+    ProgramField,
 )
 from app.models.admin import (
     Admin,

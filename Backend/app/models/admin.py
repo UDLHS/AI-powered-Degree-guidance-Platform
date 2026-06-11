@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, String, Text, DateTime, Boolean, ForeignKey, BigInteger
+from sqlalchemy import Column, String, Text, Float,DateTime, Boolean, ForeignKey, BigInteger
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.sql import func
 
@@ -20,7 +20,7 @@ class Admin(Base):
 class AdminAuditLog(Base):
     __tablename__ = "admin_audit_logs"
 
-    log_id = Column(BigInteger, primary_key=True, index=True)
+    log_id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
     admin_id = Column(UUID(as_uuid=True), ForeignKey("admins.admin_id"), nullable=False)
     action = Column(String(100), nullable=False)
     entity_type = Column(String(60), nullable=False)
@@ -53,7 +53,7 @@ class OCRJob(Base):
 class OCRExtractedRow(Base):
     __tablename__ = "ocr_extracted_rows"
 
-    row_id = Column(BigInteger, primary_key=True, index=True)
+    row_id = Column(BigInteger, primary_key=True, index=True, autoincrement=True)
     job_id = Column(UUID(as_uuid=True), ForeignKey("ocr_jobs.job_id"), nullable=False)
     university_name = Column(Text, nullable=False)
     program_name = Column(Text, nullable=False)
@@ -61,3 +61,6 @@ class OCRExtractedRow(Base):
     cutoff_mark = Column(String, nullable=True)
     year = Column(String, nullable=True)
     is_verified = Column(Boolean, default=False)
+    confidence_score = Column(Float, nullable=True, default=0)
+    status = Column(String(50), nullable=False, default="PENDING")
+    admin_note = Column(Text, nullable=True)

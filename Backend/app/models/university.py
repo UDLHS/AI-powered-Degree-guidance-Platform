@@ -92,3 +92,9 @@ class ProgramCourse(Base):
     is_core = Column(Boolean, default=True)
 
     degree_program = relationship("DegreeProgram", back_populates="courses")
+
+class ProgramField(Base):
+    __tablename__ = "program_fields"
+
+    program_id = Column(Integer, ForeignKey("degree_programs.program_id"), primary_key=True)
+    field_id = Column(Integer, ForeignKey("fields_of_interest.field_id"), primary_key=True)

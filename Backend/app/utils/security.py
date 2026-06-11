@@ -12,9 +12,15 @@ from app.database import get_db
 from app.models.user import User
 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
-admin_oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/admin/token")
+oauth2_scheme = OAuth2PasswordBearer(
+    tokenUrl="/api/auth/token",
+    scheme_name="StudentAuth"
+)
 
+admin_oauth2_scheme = OAuth2PasswordBearer(
+    tokenUrl="/admin/token",
+    scheme_name="AdminAuth"
+)
 def hash_password(password: str) -> str:
     password_bytes = password.encode("utf-8")
 

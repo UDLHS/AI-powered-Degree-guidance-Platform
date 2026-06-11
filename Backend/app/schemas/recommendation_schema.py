@@ -9,6 +9,10 @@ class RecommendationRequest(BaseModel):
     z_score: float
     field_ids: Optional[List[int]] = []
 
+    min_job_demand_score: Optional[int] = None
+    max_pending_margin: Optional[float] = None
+    result_type: Optional[str] = None
+
 
 class RecommendationItem(BaseModel):
     program_id: int
