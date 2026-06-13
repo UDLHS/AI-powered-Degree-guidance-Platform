@@ -64,3 +64,5 @@ class OCRExtractedRow(Base):
     confidence_score = Column(Float, nullable=True, default=0)
     status = Column(String(50), nullable=False, default="PENDING")
     admin_note = Column(Text, nullable=True)
+    raw_cutoff_mark = Column(String(50), nullable=True)
+    cutoff_status = Column(String(30), nullable=False, default="QUALIFIED")

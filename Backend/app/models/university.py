@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, SmallInteger, Numeric, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, Text, SmallInteger, Numeric, Boolean, ForeignKey,Boolean
 from sqlalchemy.orm import relationship
 
 from app.database import Base
@@ -57,6 +57,9 @@ class CutoffMark(Base):
     district_id = Column(Integer, ForeignKey("districts.district_id"), nullable=False)
     year = Column(SmallInteger, nullable=False)
     min_cutoff_mark = Column(Numeric(7, 4), nullable=False)
+    raw_cutoff_mark = Column(String(50), nullable=True)
+    cutoff_status = Column(String(30), nullable=False, default="QUALIFIED")
+    is_nqc = Column(Boolean, nullable=False, default=False)
 
     degree_program = relationship("DegreeProgram", back_populates="cutoff_marks")
 

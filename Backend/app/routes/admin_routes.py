@@ -1,10 +1,10 @@
 
 import os
 import shutil
-from uuid import uuid4
+from uuid import UUID, uuid4
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal, InvalidOperation
-from typing import Optional
+from typing import Optional, Any
 
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
 from fastapi.security import OAuth2PasswordRequestForm
@@ -12,6 +12,7 @@ from pydantic import BaseModel
 from sqlalchemy import func, desc
 from sqlalchemy.orm import Session
 
+from app.config import settings
 from app.database import get_db
 from app.models.user import User, StudentActivityLog
 from app.models.admin import Admin, UploadedPDF, OCRJob, OCRExtractedRow, AdminAuditLog
@@ -38,11 +39,104 @@ class OCRExtractedRowUpdateRequest(BaseModel):
     university_name: Optional[str] = None
     program_name: Optional[str] = None
     district_name: Optional[str] = None
-    cutoff_mark: Optional[float] = None
+    cutoff_mark: Optional[Any] = None
     year: Optional[int] = None
     status: Optional[str] = None
     is_verified: Optional[bool] = None
     admin_note: Optional[str] = None
+
+
+def make_json_safe(value: Any):
+    if isinstance(value, UUID):
+        return str(value)
+
+    if isinstance(value, datetime):
+        return value.isoformat()
+
+    if isinstance(value, Decimal):
+        return float(value)
+
+    if isinstance(value, dict):
+        return {key: make_json_safe(val) for key, val in value.items()}
+
+    if isinstance(value, list):
+        return [make_json_safe(item) for item in value]
+
+    if isinstance(value, tuple):
+        return [make_json_safe(item) for item in value]
+
+    return value
+
+
+def clean_university_name(name):
+    if not name:
+        return None
+
+    value = str(name).strip()
+    value = value.strip("()").strip()
+    return value
+
+
+def clean_program_name(name):
+    if not name:
+        return None
+
+    return str(name).strip()
+
+
+def clean_district_name(name):
+    if not name:
+        return None
+
+    return str(name).strip()
+
+
+def get_cutoff_status(value):
+    if value is None:
+        return "MISSING"
+
+    value_text = str(value).strip().upper()
+
+    if value_text == "":
+        return "MISSING"
+
+    if value_text == "NQC":
+        return "NQC"
+
+    return "QUALIFIED"
+
+
+def normalize_cutoff(value):
+    if value is None:
+        return None
+
+    value_text = str(value).strip()
+
+    if value_text == "":
+        return None
+
+    if value_text.upper() == "NQC":
+        return None
+
+    try:
+        return float(value_text)
+    except (ValueError, TypeError):
+        return None
+
+
+def normalize_year(value):
+    if value is None:
+        return None
+
+    try:
+        year_value = int(value)
+
+        if year_value < 2000 or year_value > 2100:
+            return None
+
+        return year_value
+    except (ValueError, TypeError):
+        return None
 
 
 def calculate_confidence(row: dict) -> float:
@@ -58,12 +152,16 @@ def calculate_confidence(row: dict) -> float:
         score -= 20
 
     cutoff_mark = row.get("cutoff_mark")
+    cutoff_status = get_cutoff_status(cutoff_mark)
 
-    if cutoff_mark is None:
+    if cutoff_status == "NQC":
+        # NQC is a valid UGC value, not an OCR error.
+        pass
+    elif cutoff_status == "MISSING":
         score -= 30
     else:
         try:
-            cutoff_value = float(cutoff_mark)
+            cutoff_value = float(str(cutoff_mark).strip())
 
             if cutoff_value < -3 or cutoff_value > 3:
                 score -= 30
@@ -87,19 +185,27 @@ def calculate_confidence(row: dict) -> float:
 
 
 def serialize_ocr_row(row: OCRExtractedRow):
+    cutoff_status = getattr(row, "cutoff_status", None) or "QUALIFIED"
+    raw_cutoff_mark = getattr(row, "raw_cutoff_mark", None)
+
     return {
         "row_id": row.row_id,
-        "job_id": row.job_id,
+        "job_id": str(row.job_id),
         "university_name": row.university_name,
         "program_name": row.program_name,
         "district_name": row.district_name,
         "cutoff_mark": float(row.cutoff_mark) if row.cutoff_mark is not None else None,
+        "raw_cutoff_mark": raw_cutoff_mark,
+        "cutoff_status": cutoff_status,
+        "display_cutoff": "NQC" if cutoff_status == "NQC" else (
+            float(row.cutoff_mark) if row.cutoff_mark is not None else None
+        ),
         "year": row.year,
         "confidence_score": row.confidence_score or 0,
         "status": row.status or "PENDING",
         "is_verified": row.is_verified,
         "admin_note": row.admin_note,
-        "created_at": row.created_at,
+        "created_at": getattr(row, "created_at", None),
     }
 
 
@@ -275,11 +381,11 @@ def upload_handbook_pdf(
         admin_id=current_admin.admin_id,
         action="UPLOAD_HANDBOOK",
         entity_type="UploadedPDF",
-        details={
-            "pdf_id": str(uploaded_pdf.pdf_id),
+        details=make_json_safe({
+            "pdf_id": uploaded_pdf.pdf_id,
             "filename": file.filename,
             "upload_path": file_path,
-        },
+        }),
     )
 
     db.add(audit_log)
@@ -289,14 +395,14 @@ def upload_handbook_pdf(
     return {
         "message": "PDF uploaded successfully. OCR job created.",
         "pdf": {
-            "pdf_id": uploaded_pdf.pdf_id,
+            "pdf_id": str(uploaded_pdf.pdf_id),
             "filename": uploaded_pdf.filename,
             "upload_path": uploaded_pdf.upload_path,
             "status": uploaded_pdf.status,
             "uploaded_at": uploaded_pdf.uploaded_at,
         },
         "ocr_job": {
-            "job_id": ocr_job.job_id,
+            "job_id": str(ocr_job.job_id),
             "status": ocr_job.status,
         },
     }
@@ -315,7 +421,7 @@ def get_uploaded_pdfs(
 
     return [
         {
-            "pdf_id": pdf.pdf_id,
+            "pdf_id": str(pdf.pdf_id),
             "admin_id": str(pdf.admin_id),
             "filename": pdf.filename,
             "original_filename": pdf.filename,
@@ -335,14 +441,14 @@ def get_ocr_jobs(
     jobs = (
         db.query(OCRJob, UploadedPDF)
         .join(UploadedPDF, OCRJob.pdf_id == UploadedPDF.pdf_id)
-        .order_by(OCRJob.job_id.desc())
+        .order_by(OCRJob.started_at.desc().nullslast(), OCRJob.status.asc())
         .all()
     )
 
     return [
         {
-            "job_id": job.job_id,
-            "pdf_id": pdf.pdf_id,
+            "job_id": str(job.job_id),
+            "pdf_id": str(pdf.pdf_id),
             "filename": pdf.filename,
             "pdf_status": pdf.status,
             "status": job.status,
@@ -401,37 +507,82 @@ def process_ocr_job(
     try:
         if run_full_ocr_pipeline is None:
             raise RuntimeError(
-                "OCR service is not available. Please create app/services/ocr_service.py with run_full_ocr_pipeline()."
+                "OCR service is not available. Please check app/services/ocr_service.py."
             )
+
+        if settings.OCR_POPPLER_PATH:
+            pdfinfo_path = os.path.join(settings.OCR_POPPLER_PATH, "pdfinfo.exe")
+
+            if not os.path.exists(pdfinfo_path):
+                raise RuntimeError(
+                    f"Poppler path is wrong. pdfinfo.exe not found in: {settings.OCR_POPPLER_PATH}"
+                )
 
         ocr_result = run_full_ocr_pipeline(
             pdf_path=uploaded_pdf.upload_path,
-            job_id=ocr_job.job_id,
+            job_id=str(ocr_job.job_id),
             year="2024",
         )
 
         extracted_rows = ocr_result.get("rows", [])
 
-        for row in extracted_rows:
-            confidence = row.get("confidence_score")
+        for extracted_row in extracted_rows:
+            original_cutoff = extracted_row.get("cutoff_mark")
+            cutoff_status = get_cutoff_status(original_cutoff)
+            cutoff_value = normalize_cutoff(original_cutoff)
+            year_value = normalize_year(extracted_row.get("year"))
+
+            cleaned_university_name = clean_university_name(
+                extracted_row.get("university_name")
+            )
+
+            cleaned_program_name = clean_program_name(
+                extracted_row.get("program_name")
+            )
+
+            cleaned_district_name = clean_district_name(
+                extracted_row.get("district_name")
+            )
+
+            confidence = extracted_row.get("confidence_score")
 
             if confidence is None:
-                confidence = calculate_confidence(row)
+                confidence = calculate_confidence({
+                    **extracted_row,
+                    "university_name": cleaned_university_name,
+                    "program_name": cleaned_program_name,
+                    "district_name": cleaned_district_name,
+                    "cutoff_mark": original_cutoff,
+                })
+
+            admin_note = None
+
+            if cutoff_status == "NQC":
+                admin_note = "NQC - No Qualified Candidates for this course and district."
+                confidence = max(float(confidence), 95)
+
+            elif cutoff_value is None:
+                confidence = min(float(confidence), 70)
+
+            if year_value is None:
+                confidence = min(float(confidence), 70)
 
             row_status = "REVIEW_REQUIRED" if float(confidence) < 80 else "PENDING"
 
             db.add(
                 OCRExtractedRow(
                     job_id=ocr_job.job_id,
-                    university_name=row.get("university_name"),
-                    program_name=row.get("program_name"),
-                    district_name=row.get("district_name"),
-                    cutoff_mark=row.get("cutoff_mark"),
-                    year=row.get("year"),
+                    university_name=cleaned_university_name,
+                    program_name=cleaned_program_name,
+                    district_name=cleaned_district_name,
+                    cutoff_mark=cutoff_value,
+                    raw_cutoff_mark=str(original_cutoff) if original_cutoff is not None else None,
+                    cutoff_status=cutoff_status,
+                    year=year_value,
                     confidence_score=float(confidence),
                     status=row_status,
                     is_verified=False,
-                    admin_note=None,
+                    admin_note=admin_note,
                 )
             )
 
@@ -444,12 +595,12 @@ def process_ocr_job(
             admin_id=current_admin.admin_id,
             action="PROCESS_OCR_JOB",
             entity_type="OCRJob",
-            details={
+            details=make_json_safe({
                 "job_id": ocr_job.job_id,
                 "pdf_id": uploaded_pdf.pdf_id,
                 "filename": uploaded_pdf.filename,
                 "rows_extracted": len(extracted_rows),
-            },
+            }),
         )
 
         db.add(audit_log)
@@ -457,29 +608,43 @@ def process_ocr_job(
 
         return {
             "message": "OCR processing completed successfully.",
-            "job_id": ocr_job.job_id,
-            "pdf_id": uploaded_pdf.pdf_id,
+            "job_id": str(ocr_job.job_id),
+            "pdf_id": str(uploaded_pdf.pdf_id),
             "filename": uploaded_pdf.filename,
             "status": ocr_job.status,
             "rows_extracted": len(extracted_rows),
         }
 
     except Exception as error:
-        ocr_job.status = "FAILED"
-        ocr_job.completed_at = datetime.now(timezone.utc)
-        ocr_job.error_log = str(error)
-        uploaded_pdf.status = "FAILED"
+        db.rollback()
+
+        ocr_job = db.query(OCRJob).filter(OCRJob.job_id == job_id).first()
+        uploaded_pdf = None
+
+        if ocr_job:
+            uploaded_pdf = (
+                db.query(UploadedPDF)
+                .filter(UploadedPDF.pdf_id == ocr_job.pdf_id)
+                .first()
+            )
+
+            ocr_job.status = "FAILED"
+            ocr_job.completed_at = datetime.now(timezone.utc)
+            ocr_job.error_log = str(error)
+
+        if uploaded_pdf:
+            uploaded_pdf.status = "FAILED"
 
         audit_log = AdminAuditLog(
             admin_id=current_admin.admin_id,
             action="PROCESS_OCR_JOB_FAILED",
             entity_type="OCRJob",
-            details={
-                "job_id": ocr_job.job_id,
-                "pdf_id": uploaded_pdf.pdf_id,
-                "filename": uploaded_pdf.filename,
+            details=make_json_safe({
+                "job_id": ocr_job.job_id if ocr_job else job_id,
+                "pdf_id": uploaded_pdf.pdf_id if uploaded_pdf else None,
+                "filename": uploaded_pdf.filename if uploaded_pdf else None,
                 "error": str(error),
-            },
+            }),
         )
 
         db.add(audit_log)
@@ -508,6 +673,47 @@ def get_ocr_extracted_rows(
     )
 
     return [serialize_ocr_row(row) for row in rows]
+
+
+@router.patch("/ocr-jobs/{job_id}/verify-high-confidence")
+def verify_high_confidence_rows(
+    job_id: str,
+    min_confidence: float = 80,
+    db: Session = Depends(get_db),
+    current_admin: Admin = Depends(get_current_admin),
+):
+    rows = (
+        db.query(OCRExtractedRow)
+        .filter(OCRExtractedRow.job_id == job_id)
+        .filter(OCRExtractedRow.confidence_score >= min_confidence)
+        .filter(OCRExtractedRow.is_verified == False)
+        .all()
+    )
+
+    for row in rows:
+        row.is_verified = True
+        row.status = "VERIFIED"
+
+    audit_log = AdminAuditLog(
+        admin_id=current_admin.admin_id,
+        action="VERIFY_HIGH_CONFIDENCE_OCR_ROWS",
+        entity_type="OCRExtractedRow",
+        details=make_json_safe({
+            "job_id": job_id,
+            "min_confidence": min_confidence,
+            "verified_count": len(rows),
+        }),
+    )
+
+    db.add(audit_log)
+    db.commit()
+
+    return {
+        "message": "High confidence OCR rows verified successfully.",
+        "job_id": job_id,
+        "min_confidence": min_confidence,
+        "verified_count": len(rows),
+    }
 
 
 @router.get("/ocr-extracted-rows/pending")
@@ -551,19 +757,21 @@ def update_ocr_extracted_row(
         )
 
     if payload.university_name is not None:
-        row.university_name = payload.university_name
+        row.university_name = clean_university_name(payload.university_name)
 
     if payload.program_name is not None:
-        row.program_name = payload.program_name
+        row.program_name = clean_program_name(payload.program_name)
 
     if payload.district_name is not None:
-        row.district_name = payload.district_name
+        row.district_name = clean_district_name(payload.district_name)
 
     if payload.cutoff_mark is not None:
-        row.cutoff_mark = payload.cutoff_mark
+        row.raw_cutoff_mark = str(payload.cutoff_mark)
+        row.cutoff_status = get_cutoff_status(payload.cutoff_mark)
+        row.cutoff_mark = normalize_cutoff(payload.cutoff_mark)
 
     if payload.year is not None:
-        row.year = payload.year
+        row.year = normalize_year(payload.year)
 
     if payload.admin_note is not None:
         row.admin_note = payload.admin_note
@@ -578,10 +786,10 @@ def update_ocr_extracted_row(
         admin_id=current_admin.admin_id,
         action="UPDATE_OCR_EXTRACTED_ROW",
         entity_type="OCRExtractedRow",
-        details={
+        details=make_json_safe({
             "row_id": row.row_id,
             "job_id": row.job_id,
-        },
+        }),
     )
 
     db.add(audit_log)
@@ -620,10 +828,10 @@ def verify_ocr_extracted_row(
         admin_id=current_admin.admin_id,
         action="VERIFY_OCR_EXTRACTED_ROW",
         entity_type="OCRExtractedRow",
-        details={
+        details=make_json_safe({
             "row_id": row.row_id,
             "job_id": row.job_id,
-        },
+        }),
     )
 
     db.add(audit_log)
@@ -669,14 +877,31 @@ def approve_ocr_rows_to_cutoff_marks(
 
     for row in verified_rows:
         try:
-            cutoff_value = Decimal(str(row.cutoff_mark))
             year_value = int(row.year)
-        except (InvalidOperation, ValueError, TypeError):
+        except (ValueError, TypeError):
             skipped_rows.append({
                 "row_id": row.row_id,
-                "reason": "Invalid cutoff mark or year",
+                "reason": "Invalid year",
             })
             continue
+
+        row_cutoff_status = getattr(row, "cutoff_status", None) or "QUALIFIED"
+
+        if row_cutoff_status == "NQC":
+            cutoff_value = None
+            is_nqc = True
+            raw_cutoff_mark = "NQC"
+        else:
+            try:
+                cutoff_value = Decimal(str(row.cutoff_mark))
+                is_nqc = False
+                raw_cutoff_mark = str(row.cutoff_mark)
+            except (InvalidOperation, ValueError, TypeError):
+                skipped_rows.append({
+                    "row_id": row.row_id,
+                    "reason": "Invalid cutoff mark",
+                })
+                continue
 
         if not row.university_name or not row.program_name or not row.district_name:
             skipped_rows.append({
@@ -738,6 +963,9 @@ def approve_ocr_rows_to_cutoff_marks(
 
         if existing_cutoff:
             existing_cutoff.min_cutoff_mark = cutoff_value
+            existing_cutoff.raw_cutoff_mark = raw_cutoff_mark
+            existing_cutoff.cutoff_status = row_cutoff_status
+            existing_cutoff.is_nqc = is_nqc
             updated_count += 1
         else:
             new_cutoff = CutoffMark(
@@ -745,6 +973,9 @@ def approve_ocr_rows_to_cutoff_marks(
                 district_id=district.district_id,
                 year=year_value,
                 min_cutoff_mark=cutoff_value,
+                raw_cutoff_mark=raw_cutoff_mark,
+                cutoff_status=row_cutoff_status,
+                is_nqc=is_nqc,
             )
 
             db.add(new_cutoff)
@@ -767,13 +998,14 @@ def approve_ocr_rows_to_cutoff_marks(
         admin_id=current_admin.admin_id,
         action="APPROVE_OCR_ROWS_TO_CUTOFFS",
         entity_type="CutoffMark",
-        details={
+        details=make_json_safe({
             "job_id": job_id,
             "verified_rows": len(verified_rows),
             "inserted_count": inserted_count,
             "updated_count": updated_count,
             "skipped_count": len(skipped_rows),
-        },
+            "skipped_rows": skipped_rows,
+        }),
     )
 
     db.add(audit_log)

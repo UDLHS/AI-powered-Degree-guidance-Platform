@@ -6,11 +6,14 @@ import { adminService } from "@/services/adminService";
 
 type OCRRow = {
   row_id: number;
-  job_id: number;
+  job_id: number | string;
   university_name?: string | null;
   program_name?: string | null;
   district_name?: string | null;
   cutoff_mark?: number | string | null;
+  raw_cutoff_mark?: string | null;
+  cutoff_status?: string | null;
+  display_cutoff?: string | number | null;
   year?: number | string | null;
   confidence_score?: number | null;
   status?: string | null;
@@ -176,6 +179,24 @@ const jobId = params.jobId as string;
     }
 
     return "bg-slate-800 border-slate-600 text-slate-300";
+  }
+  async function verifyHighConfidenceRows() {
+    try {
+      setError("");
+      setMessage("");
+
+      const response = await adminService.verifyHighConfidenceRows(jobId, 80);
+
+      setMessage(
+        `High confidence rows verified successfully. Count: ${
+          response.verified_count ?? 0
+        }`
+      );
+
+      await loadRows();
+    } catch (err: any) {
+      setError(err.message || "Failed to verify high confidence rows.");
+    }
   }
 
   async function saveRow(row: OCRRow) {
@@ -350,6 +371,12 @@ const jobId = params.jobId as string;
 
           <div className="flex flex-wrap gap-3">
             <button
+            onClick={verifyHighConfidenceRows}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg font-semibold"
+            >
+            Verify High Confidence Rows
+            </button>
+            <button
               onClick={loadRows}
               className="bg-slate-700 hover:bg-slate-600 text-white px-5 py-3 rounded-lg font-semibold"
             >
@@ -466,14 +493,18 @@ const jobId = params.jobId as string;
                         <td className="p-3 min-w-[110px]">
                           <input
                             className="bg-slate-800 border border-slate-600 text-white p-2 rounded w-full"
-                            value={row.cutoff_mark ?? ""}
-                            onChange={(e) =>
-                              updateLocalRow(
-                                row.row_id,
-                                "cutoff_mark",
-                                e.target.value
-                              )
-                            }
+                            value={row.cutoff_status === "NQC" ? "NQC" : row.cutoff_mark ?? ""}
+                            onChange={(e) => {
+                              const value = e.target.value;
+
+                              updateLocalRow(row.row_id, "cutoff_mark", value);
+
+                              if (value.trim().toUpperCase() === "NQC") {
+                                updateLocalRow(row.row_id, "cutoff_status", "NQC");
+                              } else {
+                                updateLocalRow(row.row_id, "cutoff_status", "QUALIFIED");
+                              }
+                            }}
                           />
                         </td>
 

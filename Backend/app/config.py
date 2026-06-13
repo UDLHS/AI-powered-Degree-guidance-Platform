@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
+    OCR_POPPLER_PATH: str = ""
 
     OCR_DPI: int = 400
     OCR_GPU: bool = False

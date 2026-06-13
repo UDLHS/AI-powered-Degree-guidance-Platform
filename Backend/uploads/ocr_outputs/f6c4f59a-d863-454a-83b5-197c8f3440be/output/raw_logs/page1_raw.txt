@@ -1,0 +1,58 @@
+  1: MEDICINE
+  2: (University of Colombo)
+  3: MEDICINE
+  4: (University of Peradeniya)
+  5: MEDICINE
+  6: (University of Sri Jayewardenepura)
+  7: MEDICINE
+  8: (University of Kelaniya)
+  9: MEDICINE
+ 10: (University of Jaffna)
+ 11: MEDICINE
+ 12: (University of Ruhuna)
+ 13: MEDICINE
+ 14: (University of Moratuwa)
+ 15: MEDICINE
+ 16: (Eastern University, Sri Lanka)
+ 17: MEDICINE
+ 18: (Rajarata University of Sri Lanka)
+ 19: MEDICINE
+ 20: (Sabaragamuwa University of Sri Lanka)
+ 21: MEDICINE
+ 22: (Wayamba University of Sri Lanka)
+ 23: MEDICINE
+ 24: (Uva Wellassa University of Sri Lanka)
+ 25: DENTAL SURGERY
+ 26: (University of Peradeniya)
+ 27: DENTAL SURGERY
+ 28: (University of Sri
+ 29: ewardenepura)
+ 30: VETERINARY SCIENCE
+ 31: (University of Peradeniya)
+ 32: BIOCHEMISTRY & MOLECULAR BIOLOGY
+ 33: (University of Colombo)
+ 34: AGRICULTURAL TECHNOLOGY & MANAGEMENT
+ 35: (University of Peradeniya)
+ 36: AGRICULTURE
+ 37: (University of Jaffna)
+ 38: AGRICULTURE
+ 39: (Eastern University, Sri Lanka)
+ 40: AGRICULTURE
+ 41: (Rajarata University of Sri Lanka)
+ 42: AGRICULTURE
+ 43: (Sabaragamuwa University of Sri Lanka)
+ 44: AGRICULTURE
+ 45: (Wayamba University of Sri Lanka)
+ 46: FOOD SCIENCE & NUTRITION
+ 47: (Wayamba University of Sri Lanka)
+ 48: FOOD SCIENCE & TECHNOLOGY
+ 49: (University of Peradeniya)
+ 50: FOOD SCIENCE & TECHNOLOGY
+ 51: (University of Sri Jayewardenepura)
+ 52: FOOD SCIENCE & TECHNOLOGY
+ 53: (Sabaragamuwa University of Sri Lanka)
+ 54: BIOLOGICAL SCIENCE
+ 55: (University of Colombo)
+ 56: BIOLOGICAL SCIENCE
+ 57: (University of Peradeniya)
+ 58: Jaye

@@ -7,8 +7,14 @@ from app.utils.security import hash_password, verify_password, create_access_tok
 from app.services.activity_service import log_student_activity
 
 
+def normalize_email(email: str) -> str:
+    return email.strip().lower()
+
+
 def register_user(db: Session, payload: UserRegisterRequest):
-    existing_user = db.query(User).filter(User.email == payload.email).first()
+    email = normalize_email(payload.email)
+
+    existing_user = db.query(User).filter(User.email == email).first()
 
     if existing_user:
         raise HTTPException(
@@ -17,8 +23,8 @@ def register_user(db: Session, payload: UserRegisterRequest):
         )
 
     new_user = User(
-        name=payload.name,
-        email=payload.email,
+        name=payload.name.strip(),
+        email=email,
         password_hash=hash_password(payload.password)
     )
 
@@ -26,7 +32,6 @@ def register_user(db: Session, payload: UserRegisterRequest):
     db.commit()
     db.refresh(new_user)
 
-    # Log student register activity for admin live panel
     log_student_activity(
         db=db,
         user_id=new_user.user_id,
@@ -54,7 +59,9 @@ def register_user(db: Session, payload: UserRegisterRequest):
 
 
 def login_user(db: Session, payload: UserLoginRequest):
-    user = db.query(User).filter(User.email == payload.email).first()
+    email = normalize_email(payload.email)
+
+    user = db.query(User).filter(User.email == email).first()
 
     if not user:
         raise HTTPException(
@@ -68,7 +75,6 @@ def login_user(db: Session, payload: UserLoginRequest):
             detail="Invalid email or password"
         )
 
-    # Log student login activity for admin live panel
     log_student_activity(
         db=db,
         user_id=user.user_id,

@@ -3,11 +3,6 @@ import { apiRequest } from "@/lib/api";
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8000";
 
-type AdminLoginResponse = {
-  access_token: string;
-  token_type: string;
-};
-
 export const adminService = {
   async login(email: string, password: string) {
     const formData = new URLSearchParams();
@@ -26,7 +21,7 @@ export const adminService = {
       throw new Error("Invalid admin email or password");
     }
 
-    const data: AdminLoginResponse = await response.json();
+    const data = await response.json();
     localStorage.setItem("admin_access_token", data.access_token);
 
     return data;
@@ -44,6 +39,12 @@ export const adminService = {
 
   getMetrics() {
     return apiRequest<any>("/admin/metrics", {
+      authType: "admin",
+    });
+  },
+
+  getLiveStats() {
+    return apiRequest<any>("/admin/live-stats", {
       authType: "admin",
     });
   },
@@ -70,50 +71,49 @@ export const adminService = {
       authType: "admin",
     });
   },
-  getLiveStats() {
-  return apiRequest<any>("/admin/live-stats", {
-    authType: "admin",
-  });
-},
 
-getStudentActivities() {
-  return apiRequest<any[]>("/admin/student-activities", {
-    authType: "admin",
-  });
-},
-processOCRJob(jobId: string | number) {
-  return apiRequest<any>(`/admin/ocr-jobs/${jobId}/process`, {
-    method: "POST",
-    authType: "admin",
-  });
-},
+  processOCRJob(jobId: string | number) {
+    return apiRequest<any>(`/admin/ocr-jobs/${jobId}/process`, {
+      method: "POST",
+      authType: "admin",
+    });
+  },
 
+  getExtractedRows(jobId: string | number) {
+    return apiRequest<any[]>(`/admin/ocr-jobs/${jobId}/extracted-rows`, {
+      authType: "admin",
+    });
+  },
 
-getExtractedRows(jobId: string | number) {
-  return apiRequest<any[]>(`/admin/ocr-jobs/${jobId}/extracted-rows`, {
-    authType: "admin",
-  });
-},
+  updateExtractedRow(rowId: number, payload: any) {
+    return apiRequest<any>(`/admin/ocr-extracted-rows/${rowId}`, {
+      method: "PATCH",
+      authType: "admin",
+      body: JSON.stringify(payload),
+    });
+  },
 
-verifyExtractedRow(rowId: number) {
-  return apiRequest<any>(`/admin/ocr-extracted-rows/${rowId}/verify`, {
-    method: "PATCH",
-    authType: "admin",
-  });
-},
+  verifyExtractedRow(rowId: number) {
+    return apiRequest<any>(`/admin/ocr-extracted-rows/${rowId}/verify`, {
+      method: "PATCH",
+      authType: "admin",
+    });
+  },
 
-updateExtractedRow(rowId: number, payload: any) {
-  return apiRequest<any>(`/admin/ocr-extracted-rows/${rowId}`, {
-    method: "PATCH",
-    authType: "admin",
-    body: JSON.stringify(payload),
-  });
-},
+  approveOCRJob(jobId: string | number) {
+    return apiRequest<any>(`/admin/ocr-jobs/${jobId}/approve-to-cutoffs`, {
+      method: "POST",
+      authType: "admin",
+    });
+  },
 
-approveOCRJob(jobId: string | number) {
-  return apiRequest<any>(`/admin/ocr-jobs/${jobId}/approve-to-cutoffs`, {
-    method: "POST",
-    authType: "admin",
-  });
-},
+  verifyHighConfidenceRows(jobId: string | number, minConfidence = 80) {
+    return apiRequest<any>(
+      `/admin/ocr-jobs/${jobId}/verify-high-confidence?min_confidence=${minConfidence}`,
+      {
+        method: "PATCH",
+        authType: "admin",
+      }
+    );
+  },
 };

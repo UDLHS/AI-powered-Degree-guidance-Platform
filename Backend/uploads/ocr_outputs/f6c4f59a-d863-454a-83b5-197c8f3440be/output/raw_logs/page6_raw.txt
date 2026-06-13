@@ -1,0 +1,70 @@
+  1: INFORMATION SYSTEMS #
+  2: (University of Sabaragamuwa)
+  3: SOFTWARE ENGINEERING
+  4: (University of Sri Jayewardenepura)
+  5: SOFTWARE ENGINEERING
+  6: (University of Kelaniya)
+  7: SOFTWARE ENGINEERING
+  8: (Sabaragamuwa University of Sri Lanka)
+  9: AYURVEDIC MEDICINE & SURGERY
+ 10: (University of Colombo)
+ 11: AYURVEDIC MEDICINE & SURGERY
+ 12: (The Gampaha Wickramarachchi University of Indigenous
+ 13: Medicine, Sri Lanka)
+ 14: UNANI MEDICINE & SURGERY
+ 15: (University of Colombo)
+ 16: SIDDHA MEDICINE & SURGERY
+ 17: (University of Jaffna)
+ 18: SIDDHA MEDICINE & SURGERY
+ 19: (Eastern University
+ 20: Trincomalee Campus)
+ 21: INDIGENOUS MEDICINAL RESOURCES
+ 22: (The Gampaha Wickramarachchi University of Indigenous
+ 23: Medicine, Sri Lanka)
+ 24: HEALTH INFORMATION AND COMMUNICATION
+ 25: TECHNOLOGY
+ 26: (The Gampaha Wickramarachchi University of
+ 27: Indigenous
+ 28: Medicine, Sri Lanka)
+ 29: HEALTH TOURISM AND HOSPITALITY MANAGEMENT
+ 30: (The Gampaha Wickramarachchi University of
+ 31: Indigenous
+ 32: Medicine, Sri Lanka)
+ 33: BIOMEDICAL TECHNOLOGY
+ 34: (The Gampaha Wickramarachchi University of
+ 35: Indigenous
+ 36: Medicine, Sri Lanka)
+ 37: INDIGENOUS PHARMACEUTICAL TECHNOLOGY
+ 38: (The Gampaha Wickramarachchi University of Indigenous
+ 39: Medicine, Sri Lanka)
+ 40: YOGA
+ 41: AND PARAPSYCHOLOGY
+ 42: (The Gampaha Wickramarachchi University of Indigenous
+ 43: Medicine, Sri Lanka)
+ 44: SOCIAL STUDIES IN INDIGENOUS KNOWLEDGE
+ 45: (The Gampaha Wickramarachchi University of Indigenous
+ 46: Medicine, Sri Lanka)
+ 47: HEALTH PROMOTION
+ 48: (Rajarata University of Sri Lanka)
+ 49: NURSING
+ 50: (University of Colombo)
+ 51: NURSING
+ 52: (University of Peradeniya)
+ 53: NURSING
+ 54: (University of Sri Jayewardenepura)
+ 55: NURSING
+ 56: (University of Jaffna)
+ 57: NURSING
+ 58: (University of Ruhuna)
+ 59: NURSING
+ 60: (Eastern University, Sri Lanka)
+ 61: PHARMACY
+ 62: (University of Peradeniya)
+ 63: PHARMACY
+ 64: (University of Sri Jayewardenepura)
+ 65: PHARMACY
+ 66: (University of Jaffna)
+ 67: PHARMACY
+ 68: (University of Ruhuna)
+ 69: MEDICAL LABORATORY SCIENCES
+ 70: (University of Peradeniya)
