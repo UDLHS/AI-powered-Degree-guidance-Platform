@@ -1,0 +1,68 @@
+  1: BUSINESS INFORMATION SYSTEMS
+  2: (HONOURS) (BIS)
+  3: (University of Sri Jayewardenepura)
+  4: FINANCIAL ENGINEERING #
+  5: (University of Kelaniya)
+  6: BANKING & INSURANCE
+  7: (University of Vavuniya, Sri Lanka)
+  8: LAW
+  9: (University of Colombo)
+ 10: LAW
+ 11: (University of Peradeniya)
+ 12: LAW
+ 13: (University of Jaffna)
+ 14: ARTS
+ 15: (University of Colombo)
+ 16: ARTS
+ 17: (University of Peradeniya)
+ 18: ARTS
+ 19: (University of Sri Jayewardenepura)
+ 20: ARTS
+ 21: (University of Kelaniya)
+ 22: ARTS
+ 23: (University of Jaffna)
+ 24: ARTS
+ 25: (University of Ruhuna)
+ 26: ARTS
+ 27: (Eastern University, Sri Lanka)
+ 28: ARTS
+ 29: (South Eastern University of Sri Lanka)
+ 30: ARTS
+ 31: (Rajarata University of Sri Lanka)
+ 32: ARTS (SP) _
+ 33: MASS MEDIA*
+ 34: (University of Colombo
+ 35: Sri Palee Campus)
+ 36: ARTS (SP)
+ 37: PERFORMING ARTS
+ 38: #
+ 39: (University of Colombo
+ 40: Sri Palee Campus)
+ 41: ARTS (SAB)
+ 42: A_
+ 43: [Arts Stream]
+ 44: (Sabaragamuwa University of Sri Lanka)
+ 45: ARTS (SAB)
+ 46: B
+ 47: [Commerce Stream]
+ 48: (Sabaragamuwa University of Sri Lanka)
+ 49: ARTS-INFORMATION TECHNOLOGY
+ 50: (University of Sri Jayewardenepura)
+ 51: AQUATIC BIORESOURCES
+ 52: (University of Sri Jayewardenepura)
+ 53: URBAN BIORESOURCES
+ 54: (University of Sri Jayewardenepura)
+ 55: SOCIAL WORK
+ 56: (University of Peradeniya)
+ 57: SOCIAL WORK
+ 58: (University of Jayewardenepura)
+ 59: HUMAN RESOURCE DEVELOPMENT
+ 60: (Uva Wellassa University of Sri Lanka)
+ 61: PRIMARY EDUCATION
+ 62: (University of Colombo)
+ 63: MANAGEMENT STUDIES (TV) - A
+ 64: [Commerce Stream]
+ 65: (University of Vavuniya, Sri Lanka)
+ 66: MANAGEMENT STUDIES (TV) - A
+ 67: [Commerce Stream]
+ 68: (Eastern University -~Trincomalee Campus)
